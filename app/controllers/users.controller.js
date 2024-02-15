@@ -3,7 +3,7 @@ const Users = db.users;
 // Create and Save a new User
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.mail) {
+  if (!req.body.identifiant) {
     res.status(400).send({ message: "Les champs ne peuvent être vide!" });
     return;
   }
@@ -96,7 +96,7 @@ exports.delete = (req, res) => {
           });
         } else {
           res.send({
-            message: "User supprimer avec succès!"
+            message: "User supprimé avec succès!"
           });
         }
       })
@@ -111,13 +111,13 @@ exports.deleteAll = (req, res) => {
     Users.deleteMany({})
     .then(data => {
       res.send({
-        message: `${data.deletedCount} Users were deleted successfully!`
+        message: `${data.deletedCount} Les usagers ont bien été supprimés!`
       });
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while removing all Users."
+          err.message || "Erreur lors de la suppression des usagers."
       });
     });
 };
