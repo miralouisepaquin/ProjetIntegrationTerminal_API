@@ -10,7 +10,7 @@ module.exports = mongoose => {
             ville: String,
             province: String,
             numTelephone: String,
-            type: String,
+            type: Boolean,
         },
         { timestamps: true }
     );
