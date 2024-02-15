@@ -26,8 +26,12 @@ app.get("/", (_, res) => {
   return res.json({ message: "Bienvenue dans mon application!" });
 });
 require("./app/routes/users.routes.js")(app);
+require("./app/routes/sections.routes.js")(app);
+require("./app/routes/questions.routes.js")(app);
+require("./app/routes/forms.routes.js")(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
