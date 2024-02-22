@@ -1,3 +1,12 @@
+//Controlleur : usersController
+//
+//Auteur Mira Paquin
+//(c)2024 Projet Intégration Terminal
+//
+//Controlleur pour gérer les actions sur les utilisateurs
+//
+// === resources mongodb
+
 const db = require("../models");
 const Users = db.users;
 // Create and Save a new User
@@ -14,10 +23,6 @@ exports.create = (req, res) => {
     prenom: req.body.prenom,
     mail: req.body.mail,
     password: req.body.password,
-		adresse: req.body.adresse,
-    ville: req.body.ville,
-    province: req.body.province,
-    numTelephone: req.body.numTelephone,
     type: req.body.type
   });
   // Save User in the database
@@ -88,7 +93,7 @@ exports.update = (req, res) => {
 // Delete a User with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
-    Users.findByIdAndRemove(id)
+    Users.findByIdAndDelete(id)
       .then(data => {
         if (!data) {
           res.status(404).send({

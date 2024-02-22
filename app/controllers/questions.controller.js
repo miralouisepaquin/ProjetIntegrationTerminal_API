@@ -1,3 +1,12 @@
+//Controlleur : questionsController
+//
+//Auteur Mira Paquin
+//(c)2024 Projet Intégration Terminal
+//
+//Controlleur pour gérer les actions sur les questions
+//
+// === resources mongodb
+
 const db = require("../models");
 const Questions = db.questions;
 // Create and Save a new Question
@@ -9,10 +18,8 @@ exports.create = (req, res) => {
   }
   // Create a Question
   const questions = new Questions({
-    section: req.body.section,
     numQuestion: req.body.numQuestion,
-    description: req.body.description,
-    reponse: req.body.reponse
+    description: req.body.description
   });
   // Save Question in the database
   questions
@@ -82,7 +89,7 @@ exports.update = (req, res) => {
 // Delete a Question with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
-    Questions.findByIdAndRemove(id)
+    Questions.findByIdAndDelete(id)
       .then(data => {
         if (!data) {
           res.status(404).send({

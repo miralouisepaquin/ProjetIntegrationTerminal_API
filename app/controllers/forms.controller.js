@@ -1,16 +1,26 @@
+//Controlleur : formsController
+//
+//Auteur Mira Paquin
+//(c)2024 Projet Intégration Terminal
+//
+//Controlleur pour gérer les actions sur les formulaires
+//
+// === resources mongodb
+
 const db = require("../models");
 const Forms = db.forms;
 // Create and Save a new Form
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.section) {
+  if (!req.body.identifiant) {
     res.status(400).send({ message: "Les champs ne peuvent être vide!" });
     return;
   }
   // Create a Form
   const forms = new Forms({
     identifiant: req.body.identifiant,
-    numQuestion: req.body.numQuestion,
+    date: new Date(),
+    reponses: [],
     progression: req.body.progression
   });
   // Save Form in the database
@@ -81,7 +91,7 @@ exports.update = (req, res) => {
 // Delete a Form with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
-    Forms.findByIdAndRemove(id)
+    Forms.findByIdAndDelete(id)
       .then(data => {
         if (!data) {
           res.status(404).send({
