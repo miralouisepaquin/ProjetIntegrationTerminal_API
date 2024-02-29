@@ -1,4 +1,4 @@
-//Modèle : Forms_ChoixProgramme
+//Modèle : FormProgramme
 //
 //Auteur Mira Paquin
 //(c)2024 Projet Intégration Terminal
@@ -8,15 +8,21 @@
 module.exports = mongoose => {
   var schema = mongoose.Schema(
       {
-          identifiant: String,
-          date: Date,
-          reponses: [
+          titre: String,
+          directive: [
             {
-              numQuestion: String,
-              reponse: Boolean,
+              titre: String,
+              objectif: [],
+              but: String,
             }
           ],
-          progression: Number,
+          piedPage: String,
+          questions: [
+            {
+              facteur: String,
+              questions: [],
+            }
+          ],
       },
       { timestamps: true }
   );
@@ -25,6 +31,6 @@ module.exports = mongoose => {
       object.id = _id;
       return object;
     });
-    const FormsProgramme = mongoose.model("formsProgramme", schema);
-  return FormsProgramme;
+    const FormProgramme = mongoose.model("formProgramme", schema);
+  return FormProgramme;
 };

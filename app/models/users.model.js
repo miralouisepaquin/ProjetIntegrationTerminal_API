@@ -14,6 +14,20 @@ module.exports = mongoose => {
           mail: String,
           password: String,
           type: Boolean,
+          questionnaire:[{
+            monProgrammeEtudes: [{
+              id: String,
+              reponse: String,
+            }],
+            monChoixProgramme: [{
+              reponsesPositives: [],
+              reponsesNegatives: [],
+            }],
+            moyensPourReussir: [{
+              actionReponses: [],
+              resourcesReponses: [],
+            }],
+          }],
       },
       { timestamps: true }
   );

@@ -1,14 +1,14 @@
-//Controlleur : formsController
+//Controlleur : formReussirController
 //
 //Auteur Mira Paquin
 //(c)2024 Projet Intégration Terminal
 //
-//Controlleur pour gérer les actions sur les formulaires
+//Controlleur pour gérer les actions sur le formulaire Moyen Pour Réussir
 //
 // === resources mongodb
 
 const db = require("../models");
-const Forms = db.formsProgramme;
+const Form = db.formReussir;
 // Create and Save a new Form
 exports.create = (req, res) => {
   // Validate request
@@ -17,15 +17,21 @@ exports.create = (req, res) => {
     return;
   }
   // Create a Form
-  const forms = new Forms({
-    identifiant: req.body.identifiant,
-    date: new Date(),
-    reponses: [],
-    progression: req.body.progression
+  const form = new Form({
+    titre: req.body.titre,
+    directive: req.body.directive,
+    instruction: req.body.instruction,
+    piedPage: req.body.piedPage,
+    questions: [{
+        facteur: req.body.facteur,
+        titre: req.body.titre,
+        actions: [],
+        ressources: [],
+      }]
   });
   // Save Form in the database
-  forms
-    .save(forms)
+  form
+    .save(form)
     .then(data => {
       res.send(data);
     })
@@ -36,25 +42,25 @@ exports.create = (req, res) => {
       });
     });
 };
-// Retrieve all Forms from the database.
+// Retrieve all Form from the database.
 exports.findAll = (req, res) => {
     const id = req.query.id;
     var condition = id ? { id: { $regex: new RegExp(id), $options: "i" } } : {};
-    Forms.find(condition)
+    Form.find(condition)
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Une erreur est survenue lors de la recherche des Forms."
+            err.message || "Une erreur est survenue lors de la recherche des Form."
         });
       });
 };
 // Find a single Form with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
-    Forms.findById(id)
+    Form.findById(id)
       .then(data => {
         if (!data)
           res.status(404).send({ message: "Impossible de trouver le Form avec le id : " + id });
@@ -74,7 +80,7 @@ exports.update = (req, res) => {
         });
       }
       const id = req.params.id;
-      Forms.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+      Form.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
         .then(data => {
           if (!data) {
             res.status(404).send({
@@ -91,7 +97,7 @@ exports.update = (req, res) => {
 // Delete a Form with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
-    Forms.findByIdAndDelete(id)
+    Form.findByIdAndDelete(id)
       .then(data => {
         if (!data) {
           res.status(404).send({

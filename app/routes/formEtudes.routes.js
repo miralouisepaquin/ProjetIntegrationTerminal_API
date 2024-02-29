@@ -1,21 +1,21 @@
-//Fichier de route pour le controleur formsController
+//Fichier de route pour les routes FormEtudes
 //
 //Auteur : Mira Paquin
 //(c)2024 Projet Intégration Terminal
 //
-const formsController = require("../controllers/forms_programmeEtudes.controller");
+const FormController = require("../controllers/formEtudes.controller");
 var router = require("express").Router();
-/** Swagger tag FormsEtudes
+/** Swagger tag FormEtudes
  * @swagger
  * tags:
- *  name: FormsEtudes
+ *  name: FormEtudes
  *  description: For form management
   */
 
-/** Swagger definition FormsDefault
+/** Swagger definition FormDefault
  * @swagger
  * definitions:
- *  FormsDefault:
+ *  FormDefault:
  *   type: object
  *   properties:
  *    message:
@@ -90,12 +90,12 @@ var router = require("express").Router();
    */
 
 
-/** Swagger get /api/formsEtudes/
+/** Swagger get /api/FormEtudes/
  * @swagger
-  * /api/formsEtudes/:
+  * /api/FormEtudes/:
   *  get:
   *   summary: Default action of the form controller
- *   tags : [FormsEtudes]
+ *   tags : [FormEtudes]
   *   description: Default action of the form controller
   *   responses:
  *    200:
@@ -103,20 +103,20 @@ var router = require("express").Router();
  *     content:
  *      application/json:
  *       schema:
- *        $ref: '#/definitions/FormsDefault'
+ *        $ref: '#/definitions/FormDefault'
   *    500:
   *     description: Error processing request
   */
 router.get('/', (req, res) => {
-  res.status(200).json({ message: 'Connected to the forms controller!' });
+  res.status(200).json({ message: 'Connected to the Form controller!' });
 });
 
-/** Swagger post /api/formsEtudes/createForm/
+/** Swagger post /api/FormEtudes/createForm/
  * @swagger
-  * /api/formsEtudes/createForm/:
+  * /api/FormEtudes/createForm/:
   *  post:
   *   summary: Add an form
-  *   tags : [FormsEtudes]
+  *   tags : [FormEtudes]
   *   description: Add an form to the database
   *   requestBody:
   *    content:
@@ -135,14 +135,14 @@ router.get('/', (req, res) => {
   *    500:
   *     description: Une erreur est survenue lors de la création du Form.
   */
-router.post("/createForm", formsController.create);
-/** Swagger get /api/formsEtudes/findAllForms
+router.post("/createForm", FormController.create);
+/** Swagger get /api/FormEtudes/findAllForm
  * @swagger
-  * /api/formsEtudes/findAllForms/:
+  * /api/FormEtudes/findAllForm/:
   *  get:
-  *   summary: Action that gets forms 
- *   tags : [FormsEtudes]
-  *   description: Action that gets forms 
+  *   summary: Action that gets Form 
+ *   tags : [FormEtudes]
+  *   description: Action that gets Form 
  *   responses:
  *    200:
  *     description: success
@@ -153,39 +153,14 @@ router.post("/createForm", formsController.create);
   *    500:
   *     description: Une erreur est survenue lors de la recherche des formulaires.
   */
-router.get("/findAllForms", formsController.findAll);
-/** Swagger get /api/formsEtudes/findForm/:identifiant
+
+router.get("/findForm/:id", FormController.findOne);
+/** Swagger put /api/FormEtudes/updateForm/:id
  * @swagger
- * /api/formsEtudes/findForm/{identifiant}:
- *   get:
- *     summary: Returns forms according to criteria (identifiant) passed as parameters
- *     tags: [FormsEtudes]
- *     parameters:
- *       - in : path
- *         name: identifiant
- *         description: Return all forms on identification Identifiant
- *         schema:
- *           type: string
- *         required: true
- *     responses:
- *      200:
- *        description: success
- *        content:
- *         application/json:
- *          schema:
- *            $ref: '#/definitions/FormData'
- *      404:
- *        description: Impossible de trouver le form avec le id
- *      500:
- *        description: Erreur lors de la recherche du form avec le id
- */
-router.get("/findForm/:identifiant", formsController.findOne);
-/** Swagger put /api/formsEtudes/updateForm/:id
- * @swagger
- * /api/formsEtudes/updateForm/{id}:
+ * /api/FormEtudes/updateForm/{id}:
  *   put:
  *     summary: Update form according to criteria (id) passed as parameters
- *     tags: [FormsEtudes]
+ *     tags: [FormEtudes]
  *     parameters:
  *       - in : path
  *         name: id
@@ -205,32 +180,6 @@ router.get("/findForm/:identifiant", formsController.findOne);
  *      500:
  *        description: Erreur lors de la modification du Form avec le id
  */
-router.put("/updateForm/:id", formsController.update);
-/** Swagger delete /api/formsEtudes/deleteForm/:id
- * @swagger
- * /api/formsEtudes/deleteForm/{id}:
- *   delete:
- *     summary: Delete form according to criteria (id) passed as parameters
- *     tags: [FormsEtudes]
- *     parameters:
- *       - in : path
- *         name: id
- *         description: Delete a form on identification Id
- *         schema:
- *           type: string
- *         required: true
- *     responses:
- *      200:
- *        description: success
- *        content:
- *         application/json:
- *          schema:
- *            $ref: '#/definitions/FormDeleted'
- *      404:
- *        desription: Ne peut supprimer le Form avec le id=${id}. Il se peut que le Form n'existe pas!
- *      500:
- *        description: Ne peut supprimer le Form avec le id
- */
-router.delete("/deleteForm/:id", formsController.delete);
-	
+router.put("/updateForm/:id", FormController.update);
+
 module.exports = router;

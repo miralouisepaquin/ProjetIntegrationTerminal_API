@@ -1,4 +1,4 @@
-//Fichier de route pour le controleur usersController
+//Fichier de route pour les routes users
 //
 //Auteur : Mira Paquin
 //(c)2024 Projet Intégration Terminal

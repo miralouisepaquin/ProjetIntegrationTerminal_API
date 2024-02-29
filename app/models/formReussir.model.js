@@ -1,4 +1,4 @@
-//Modèle : Forms_MoyenReussir
+//Modèle : FormReussir
 //
 //Auteur Mira Paquin
 //(c)2024 Projet Intégration Terminal
@@ -8,15 +8,18 @@
 module.exports = mongoose => {
   var schema = mongoose.Schema(
       {
-          identifiant: String,
-          date: Date,
-          reponses: [
+          titre: String,
+          directive: String,
+          instruction: String,
+          piedPage: String,
+          questions: [
             {
-              numQuestion: String,
-              reponse: Boolean,
+              facteur: String,
+              titre: Boolean,
+              actions: [],
+              ressources: [],
             }
           ],
-          progression: Number,
       },
       { timestamps: true }
   );
@@ -25,6 +28,6 @@ module.exports = mongoose => {
       object.id = _id;
       return object;
     });
-    const FormsReussir = mongoose.model("formsReussir", schema);
-  return FormsReussir;
+    const FormReussir = mongoose.model("formReussir", schema);
+  return FormReussir;
 };

@@ -1,21 +1,21 @@
-//Fichier de route pour le controleur formsController
+//Fichier de route pour les routes FormReussir
 //
 //Auteur : Mira Paquin
 //(c)2024 Projet Intégration Terminal
 //
-const formsController = require("../controllers/forms_choixProgramme.controller.js");
+const FormController = require("../controllers/formReussir.controller.js");
 var router = require("express").Router();
-/** Swagger tag FormsProgramme
+/** Swagger tag FormReussir
  * @swagger
  * tags:
- *  name: FormsProgramme
+ *  name: FormReussir
  *  description: For form management
   */
 
-/** Swagger definition FormsDefault
+/** Swagger definition FormDefault
  * @swagger
  * definitions:
- *  FormsDefault:
+ *  FormDefault:
  *   type: object
  *   properties:
  *    message:
@@ -41,7 +41,7 @@ var router = require("express").Router();
  *    reponse:
  *     type: array
  *     description: List of question
- *     example: '[1S1:1,1S2:1,1S3:0]'
+ *     example: '[2S1:1,2S2:1,2S3:0]'
  *    progression:
  *     type: number
  *     description: Progression for the completion of the form in %
@@ -90,12 +90,12 @@ var router = require("express").Router();
    */
 
 
-/** Swagger get /api/formsProgramme/
+/** Swagger get /api/FormReussir/
  * @swagger
-  * /api/formsProgramme/:
+  * /api/FormReussir/:
   *  get:
   *   summary: Default action of the form controller
- *   tags : [FormsProgramme]
+ *   tags : [FormReussir]
   *   description: Default action of the form controller
   *   responses:
  *    200:
@@ -103,20 +103,20 @@ var router = require("express").Router();
  *     content:
  *      application/json:
  *       schema:
- *        $ref: '#/definitions/FormsDefault'
+ *        $ref: '#/definitions/FormDefault'
   *    500:
   *     description: Error processing request
   */
 router.get('/', (req, res) => {
-  res.status(200).json({ message: 'Connected to the forms controller!' });
+  res.status(200).json({ message: 'Connected to the Form controller!' });
 });
 
-/** Swagger post /api/formsProgramme/createForm/
+/** Swagger post /api/FormReussir/createForm/
  * @swagger
-  * /api/formsProgramme/createForm/:
+  * /api/FormReussir/createForm/:
   *  post:
   *   summary: Add an form
-  *   tags : [FormsProgramme]
+  *   tags : [FormReussir]
   *   description: Add an form to the database
   *   requestBody:
   *    content:
@@ -135,35 +135,18 @@ router.get('/', (req, res) => {
   *    500:
   *     description: Une erreur est survenue lors de la création du Form.
   */
-router.post("/createForm", formsController.create);
-/** Swagger get /api/formsProgramme/findAllForms
+router.post("/createForm", FormController.create);
+
+/** Swagger get /api/FormReussir/findForm/:identifiant
  * @swagger
-  * /api/formsProgramme/findAllForms/:
-  *  get:
-  *   summary: Action that gets forms 
- *   tags : [FormsProgramme]
-  *   description: Action that gets forms 
- *   responses:
- *    200:
- *     description: success
- *     content:
- *      application/json:
- *       schema:
- *        $ref: '#/definitions/FormData'
-  *    500:
-  *     description: Une erreur est survenue lors de la recherche des formulaires.
-  */
-router.get("/findAllForms", formsController.findAll);
-/** Swagger get /api/formsProgramme/findForm/:identifiant
- * @swagger
- * /api/formsProgramme/findForm/{identifiant}:
+ * /api/FormReussir/findForm/{identifiant}:
  *   get:
- *     summary: Returns forms according to criteria (identifiant) passed as parameters
- *     tags: [FormsProgramme]
+ *     summary: Returns Form according to criteria (identifiant) passed as parameters
+ *     tags: [FormReussir]
  *     parameters:
  *       - in : path
  *         name: identifiant
- *         description: Return all forms on identification Identifiant
+ *         description: Return all Form on identification Identifiant
  *         schema:
  *           type: string
  *         required: true
@@ -179,13 +162,13 @@ router.get("/findAllForms", formsController.findAll);
  *      500:
  *        description: Erreur lors de la recherche du form avec le id
  */
-router.get("/findForm/:identifiant", formsController.findOne);
-/** Swagger put /api/formsProgramme/updateForm/:id
+router.get("/findForm/:identifiant", FormController.findOne);
+/** Swagger put /api/FormReussir/updateForm/:id
  * @swagger
- * /api/formsProgramme/updateForm/{id}:
+ * /api/FormReussir/updateForm/{id}:
  *   put:
  *     summary: Update form according to criteria (id) passed as parameters
- *     tags: [FormsProgramme]
+ *     tags: [FormReussir]
  *     parameters:
  *       - in : path
  *         name: id
@@ -205,32 +188,6 @@ router.get("/findForm/:identifiant", formsController.findOne);
  *      500:
  *        description: Erreur lors de la modification du Form avec le id
  */
-router.put("/updateForm/:id", formsController.update);
-/** Swagger delete /api/formsProgramme/deleteForm/:id
- * @swagger
- * /api/formsProgramme/deleteForm/{id}:
- *   delete:
- *     summary: Delete form according to criteria (id) passed as parameters
- *     tags: [FormsProgramme]
- *     parameters:
- *       - in : path
- *         name: id
- *         description: Delete a form on identification Id
- *         schema:
- *           type: string
- *         required: true
- *     responses:
- *      200:
- *        description: success
- *        content:
- *         application/json:
- *          schema:
- *            $ref: '#/definitions/FormDeleted'
- *      404:
- *        desription: Ne peut supprimer le Form avec le id=${id}. Il se peut que le Form n'existe pas!
- *      500:
- *        description: Ne peut supprimer le Form avec le id
- */
-router.delete("/deleteForm/:id", formsController.delete);
+router.put("/updateForm/:id", FormController.update);
 	
 module.exports = router;

@@ -64,15 +64,19 @@ db.mongoose
 //Route utiliser dans le projet
 var usersRoutes = require('./app/routes/users.routes.js'); 
 var questionsRoutes = require('./app/routes/questions.routes.js');
-var formsProgrammeRoutes = require('./app/routes/forms_choixProgramme.routes.js');
-var formsReussirRoutes = require('./app/routes/forms_moyenReussir.routes.js');
-var formsEtudesRoutes = require('./app/routes/forms_programmeEtudes.routes.js');
+var formProgrammeRoutes = require('./app/routes/formProgramme.routes.js');
+var formReussirRoutes = require('./app/routes/formReussir.routes.js');
+var formEtudesRoutes = require('./app/routes/formEtudes.routes.js');
+var actions = require('./app/routes/actions.routes.js');
+var ressources = require('./app/routes/ressources.routes.js');
 
 app.use("/api/users", usersRoutes);
 app.use("/api/questions", questionsRoutes);
-app.use("/api/formsProgramme", formsProgrammeRoutes);
-app.use("/api/formsReussir", formsReussirRoutes);
-app.use("/api/formsEtudes", formsEtudesRoutes);
+app.use("/api/formProgramme", formProgrammeRoutes);
+app.use("/api/formReussir", formReussirRoutes);
+app.use("/api/formEtudes", formEtudesRoutes);
+app.use("/api/actions", actions);
+app.use("/api/ressources", ressources);
 
 //Route par défaut
 app.get('/',  (req, res) => {

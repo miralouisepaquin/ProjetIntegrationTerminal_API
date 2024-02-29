@@ -1,4 +1,4 @@
-//Fichier de route pour le controleur questionsController
+//Fichier de route pour les routes questions
 //
 //Auteur : Mira Paquin
 //(c)2024 Projet Intégration Terminal

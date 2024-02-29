@@ -8,7 +8,8 @@
 module.exports = mongoose => {
   var schema = mongoose.Schema(
       {
-          numQuestion: Number,
+          numQuestion: String,
+          titre: String,
           description: String,
       },
       { timestamps: true }
